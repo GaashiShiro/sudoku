@@ -1,0 +1,73 @@
+body {
+    background-color: rgb(112, 194, 241);
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    inset: 0px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+#error {
+    position: relative;
+    color: rgb(241, 42, 42);
+    justify-content: center;
+    align-items: center;
+}
+
+#board {
+    background-color: white;
+    position: relative;
+    display: grid;
+    border: 1px solid black;
+    padding: 2px;
+    box-shadow: 1px 1px 16px 1px grey;
+    grid-template-columns: repeat(var(--size), 1fr);
+    gap: 1px;
+}
+
+
+#board:nth-child(3) {
+    border-right:solid ;
+}
+
+#digits {
+    position: relative;
+    background-color: black;
+    display: grid;
+    border: 1px solid black;
+    padding: 1px;
+    box-shadow: 1px 1px 16px 1px grey;
+    grid-template-columns: repeat(var(--size), 1fr);
+    gap: 1px;
+}
+
+#digits > div {
+    position: relative;
+    background-color: silver;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+
+#board > div {
+    position: relative;
+    background-color: silver;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+
+
+#board div:nth-child(3){
+    border-right: 2px solid;
+}
+
+#board div:nth-child(21){
+    border-bottom: 2px solid;
+}
+

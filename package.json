@@ -1,0 +1,12 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "Sudoku Game",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gaashi",
+  "license": "ISC"
+}
