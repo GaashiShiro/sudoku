@@ -75,6 +75,6 @@ body {
     background-color: yellow;
 }
 
-.number-selected {
-    background-color: orange;
+#digits >.number-selected {
+    background-color: rgb(44, 159, 212);
 }

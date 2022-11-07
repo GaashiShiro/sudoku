@@ -54,11 +54,18 @@ const main =()=>{
     
     let selectedNumber = null;
     let selectedTile;
+    
+    
 
     newBoard.digits.addEventListener("click", (e)=>{
         if (gamestate != 'normal') return
+        let selNum = e.target;
+        let digits = document.getElementById('digits').children
+        for(let i=0; i<digits.length; i++) {
+            digits[i].className = "empty"
+        }        
+        selNum.className = "number-selected"
         selectedNumber = e.target.textContent;
-        //console.log('Digit: ',selectedNumber);
     });
 
     newBoard.elem.addEventListener("click", (e)=>{
@@ -75,7 +82,6 @@ const main =()=>{
             totalErrors.textContent++;
         }
     });
-    console.log(totalErrors.textContent)
 }
 
 main();

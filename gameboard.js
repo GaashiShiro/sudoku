@@ -35,6 +35,7 @@ class Board {
         for (let d = 1; d<10; d++){
             const e = document.createElement('div');
             digits.appendChild(e);
+            e.classList = "empty";
             e.textContent = d;
         }
     }
