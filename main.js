@@ -66,6 +66,7 @@ const main =()=>{
         }        
         selNum.className = "number-selected"
         selectedNumber = e.target.textContent;
+        console.log(selectedNumber)
     });
 
     newBoard.elem.addEventListener("click", (e)=>{
@@ -78,7 +79,7 @@ const main =()=>{
         if (selectedTile.textContent == '' && selectedNumber == findSolution(solution, indexSolution)){
             selectedTile.textContent = selectedNumber;
         }
-        if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null) {
+        if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null && selectedNumber != '123456789') {
             totalErrors.textContent++;
         }
     });
