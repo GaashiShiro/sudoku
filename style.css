@@ -63,11 +63,18 @@ body {
 }
 
 
-#board div:nth-child(3){
+#board div:nth-child(3n){
     border-right: 2px solid;
 }
 
-#board div:nth-child(21){
+#board div:nth-child(n+19):nth-child(-n+27), #board div:nth-child(n+46):nth-child(-n+54){
     border-bottom: 2px solid;
 }
 
+.tile-selected {
+    background-color: yellow;
+}
+
+.number-selected {
+    background-color: orange;
+}
