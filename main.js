@@ -34,7 +34,6 @@ let solution = [
 ]
 
 const gameOver =()=>{
-    if (totalErrors == 3) {gamestate = 'gameover'}
     // game over screen?
 }
 
@@ -50,6 +49,9 @@ const findSolution=(solution, target)=>{
 }
 
 const gameMenu =()=>{
+    document.body.style.backgroundImage = "url('sudoku_game_logo1.png')";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = 'top center'
     const m = document.createElement('div');
     m.id = 'menu';
     document.body.appendChild(m);
@@ -61,18 +63,21 @@ const gameMenu =()=>{
         gameStart();
         m.remove();
         button.remove();
+        document.body.style.backgroundImage = '';
     })
 }
 
 const gameStart =()=>{
     mainSound.play();
     let gamestate = 'normal';
-    let totalErrors = document.getElementById('error')
+    
+
     const newBoard = new Board (9);
     newBoard.getValuesFromStruct(board);
     newBoard.draw();
     let selectedNumber = null;
     let selectedTile;
+
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return
@@ -92,8 +97,8 @@ const gameStart =()=>{
     });
 
     newBoard.elem.addEventListener("click", (e)=>{      // Event clicker for board
+        let totalErrors = document.getElementById('error')
         if (gamestate != 'normal') return
-        
         selectedTile = e.target;
         let indexSolution = findIndexOfSolution(solution, selectedTile.id)
         //console.log('Index Solution: ', indexSolution);
@@ -107,6 +112,28 @@ const gameStart =()=>{
         if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null && selectedNumber != '123456789') {
             totalErrors.textContent++;
             wrongClick.play();
+            if (totalErrors.textContent == 3) {
+                gamestate = 'gameover';
+                document.getElementById('error').remove();
+                document.getElementById('board').remove();
+                document.getElementById('digits').remove();
+                document.body.style.backgroundImage = "url('sudoku_game_logo1.png')";
+                const lost = document.body.appendChild(document.createElement('div'))
+                lost.id = 'losing-screen'
+                lost.fontSize = '44px'
+                lost.textContent = 'You lost'
+                const button = document.body.appendChild(document.createElement('button'))
+                button.textContent = 'Play Again';
+
+                button.addEventListener('click', (e)=>{
+                    gameStart();
+                    button.remove();
+                    lost.remove();
+                    document.body.style.backgroundImage = '';
+    })
+
+            }
+            
         }
     });
 }

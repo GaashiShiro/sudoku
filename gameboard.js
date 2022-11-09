@@ -3,9 +3,9 @@ class Board {
         this.tiles = [];
         this.size  = size;
         this.tiles.length = this.size*this.size;
+        this.totalErrors = document.body.appendChild(document.createElement('div'));
         this.elem = document.body.appendChild(document.createElement('div'));
         this.digits = document.body.appendChild(document.createElement('div'));
-        this.totalErrors = document.body.appendChild(document.createElement('div'));
         for (let i=0; i<this.tiles.length; i++){
             this.tiles[i] = { value: 0 }; //access the index of an array
         }
@@ -17,7 +17,6 @@ class Board {
         elem.id = 'board';
         digits.id = 'digits';
         totalErrors.id = 'error';
-        totalErrors.innerHTML = 0;
         elem.innerHTML = '';
         elem.style.setProperty('--size', size)
         digits.innerHTML = '';
