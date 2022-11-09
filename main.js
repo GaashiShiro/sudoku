@@ -49,7 +49,7 @@ const findSolution=(solution, target)=>{
 }
 
 const gameMenu =()=>{
-    document.body.style.backgroundImage = "url('sudoku_game_logo1.png')";
+    document.body.style.backgroundImage = "url('sudoku_game_logo2.png')";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundPosition = 'top center'
     const m = document.createElement('div');
@@ -117,7 +117,7 @@ const gameStart =()=>{
                 document.getElementById('error').remove();
                 document.getElementById('board').remove();
                 document.getElementById('digits').remove();
-                document.body.style.backgroundImage = "url('sudoku_game_logo1.png')";
+                document.body.style.backgroundImage = "url('sudoku_game_logo2.png')";
                 const lost = document.body.appendChild(document.createElement('div'))
                 lost.id = 'losing-screen'
                 lost.fontSize = '44px'
