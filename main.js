@@ -56,20 +56,28 @@ const main =()=>{
     let selectedTile;
     
     
+    
 
-    newBoard.digits.addEventListener("click", (e)=>{
+    newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return
         let selNum = e.target;
         let digits = document.getElementById('digits').children
-        for(let i=0; i<digits.length; i++) {
-            digits[i].className = "empty"
-        }        
+        for(let i=0; i<digits.length; i++) { digits[i].className = "empty" }
         selNum.className = "number-selected"
         selectedNumber = e.target.textContent;
         console.log(selectedNumber)
+
+        let board = document.getElementById('board').children
+        for(let i=0; i<board.length; i++) {
+            board[i].className = "empty";
+            if (board[i].textContent == selectedNumber) { board[i].className = "tile-selected" }    // Selects all tiles in the board with the selected number from digits
+        }
+        
+        //
+
     });
 
-    newBoard.elem.addEventListener("click", (e)=>{
+    newBoard.elem.addEventListener("click", (e)=>{      // Event clicker for board
         if (gamestate != 'normal') return
         selectedTile = e.target;
         let indexSolution = findIndexOfSolution(solution, selectedTile.id)
@@ -82,6 +90,8 @@ const main =()=>{
         if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null && selectedNumber != '123456789') {
             totalErrors.textContent++;
         }
+
+        
     });
 }
 
