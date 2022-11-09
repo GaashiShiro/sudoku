@@ -3,10 +3,9 @@ class Board {
         this.tiles = [];
         this.size  = size;
         this.tiles.length = this.size*this.size;
-        this.elem = document.getElementById('board');
-        this.digits = document.getElementById('digits');
-        this.totalErrors = document.getElementById('error');
-        
+        this.elem = document.body.appendChild(document.createElement('div'));
+        this.digits = document.body.appendChild(document.createElement('div'));
+        this.totalErrors = document.body.appendChild(document.createElement('div'));
         for (let i=0; i<this.tiles.length; i++){
             this.tiles[i] = { value: 0 }; //access the index of an array
         }
@@ -15,6 +14,9 @@ class Board {
     draw(){
         const {elem, size, digits, totalErrors} = this;
         let idDiv = 0;
+        elem.id = 'board';
+        digits.id = 'digits';
+        totalErrors.id = 'error';
         totalErrors.innerHTML = 0;
         elem.innerHTML = '';
         elem.style.setProperty('--size', size)
@@ -39,13 +41,6 @@ class Board {
             e.textContent = d;
         }
     }
-    
-    /*
-    tileSelected(){
-        const {elem, digits } = this;
-    }
-    */
-
     getTile(x,y){
         if (x < 0 || y<0 || x>this.size-1 || y>this.size-1){return null};
         return this.tiles[y*this.size+x]

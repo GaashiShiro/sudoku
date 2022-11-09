@@ -49,21 +49,30 @@ const findSolution=(solution, target)=>{
     return solution[target]
 }
 
-const main =()=>{
+const gameMenu =()=>{
+    const m = document.createElement('div');
+    m.id = 'menu';
+    document.body.appendChild(m);
+    const menu = document.getElementById('menu');
+    const button = menu.appendChild(document.createElement('button'))
+    button.textContent = 'Play Game';
+
+    button.addEventListener('click', (e)=>{
+        gameStart();
+        m.remove();
+        button.remove();
+    })
+}
+
+const gameStart =()=>{
     mainSound.play();
     let gamestate = 'normal';
     let totalErrors = document.getElementById('error')
-    
     const newBoard = new Board (9);
     newBoard.getValuesFromStruct(board);
     newBoard.draw();
-    
-    
     let selectedNumber = null;
     let selectedTile;
-    
-    
-    
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return
@@ -80,9 +89,6 @@ const main =()=>{
             board[i].className = "empty";
             if (board[i].textContent == selectedNumber) { board[i].className = "tile-selected" }    // Selects all tiles in the board with the selected number from digits
         }
-        
-        //
-
     });
 
     newBoard.elem.addEventListener("click", (e)=>{      // Event clicker for board
@@ -102,9 +108,10 @@ const main =()=>{
             totalErrors.textContent++;
             wrongClick.play();
         }
-
-        
     });
+}
+const main =()=>{
+    gameMenu();
 }
 
 main();
