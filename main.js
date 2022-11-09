@@ -3,6 +3,11 @@ import { Board } from "./gameboard.js";
 Temporary Board
 */
 
+let mainSound = new Audio('lighthearted_loop.ogg');
+mainSound.loop=true;
+let clickSound = new Audio('click_sound_1.mp3');
+clickSound.volume = 0.3;
+
 
 let board = [
     "007491605",
@@ -44,6 +49,7 @@ const findSolution=(solution, target)=>{
 }
 
 const main =()=>{
+    mainSound.play();
     let gamestate = 'normal';
     let totalErrors = document.getElementById('error')
     
@@ -60,6 +66,7 @@ const main =()=>{
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return
+        clickSound.play();
         let selNum = e.target;
         let digits = document.getElementById('digits').children
         for(let i=0; i<digits.length; i++) { digits[i].className = "empty" }
@@ -79,6 +86,7 @@ const main =()=>{
 
     newBoard.elem.addEventListener("click", (e)=>{      // Event clicker for board
         if (gamestate != 'normal') return
+        clickSound.play();
         selectedTile = e.target;
         let indexSolution = findIndexOfSolution(solution, selectedTile.id)
         //console.log('Index Solution: ', indexSolution);
@@ -86,6 +94,7 @@ const main =()=>{
         //console.log('Tile: ',selectedTile);
         if (selectedTile.textContent == '' && selectedNumber == findSolution(solution, indexSolution)){
             selectedTile.textContent = selectedNumber;
+            selectedTile.className = "tile-selected";
         }
         if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null && selectedNumber != '123456789') {
             totalErrors.textContent++;
