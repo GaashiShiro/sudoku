@@ -8,7 +8,7 @@ mainSound.loop=true;
 let clickSound = new Audio('click_sound_1.mp3');
 clickSound.volume = 0.3;
 let wrongClick = new Audio('toom_click.wav');
-wrongClick.volume = 0.3;
+wrongClick.volume = 0.5;
 
 let board = [
     "007491605",
