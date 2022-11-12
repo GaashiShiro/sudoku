@@ -10,17 +10,6 @@ clickSound.volume = 0.3;
 let wrongClick = new Audio('toom_click.wav');
 wrongClick.volume = 0.5;
 
-let board = [
-    "007491605",
-    "200060309",
-    "009007010",
-    "058600004",
-    "003000090",
-    "006200187",
-    "904070002",
-    "670830000",
-    "810045000"
-]
 let solution = [
     "387491625",
     "241568379",
@@ -72,13 +61,13 @@ const gameStart =()=>{
     let gamestate = 'normal';
     
     const newBoard = new Board (9);
-
-
-    newBoard.getValuesFromStruct(board);
+    let gen = newBoard.generate();
+    console.log(gen)
+    newBoard.getValuesFromStruct(gen);
     newBoard.draw();
+    
     let selectedNumber = null;
     let selectedTile;
-
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return
@@ -139,7 +128,8 @@ const gameStart =()=>{
     });
 }
 const main =()=>{
-    gameMenu();
+    //gameMenu();
+    gameStart();      //Temporary start without menu
 }
 
 main();

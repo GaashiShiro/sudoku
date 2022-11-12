@@ -51,10 +51,11 @@ class Board {
     }
 
     generate(){
-        const {elem, size} = this;
+        const { elem, size, tiles } = this;
         const randomNumIndex=()=> { return Math.floor(Math.random() * 8) };
         const randomNum=()=>      { return Math.floor(Math.random() * 9)+1 };
         const sudokuNums = [1,2,3,4,5,6,7,8,9];
+        let solution;
         const swap=(arr, x, y)=>{
             arr = sudokuNums;
             let oldX = arr[x];
@@ -74,10 +75,18 @@ class Board {
             let origArr = sudokuNums;
             let arr = [];
             while (origArr.length > 0){
-                arr.push(origArr.splice(Math.floor(Math.random() * origArr.length), 1));
-            }      
+                arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1)));
+            }
             return arr
         }
+        const generateBoard=()=>{
+            while (tiles.length != 81){
+                solution = solutionGen(shuffleFirstArr(solution));
+                console.log(solution)
+            }
+            return solution
+        }
+        return solution = generateBoard();
     }
 
     getRow(n){
@@ -96,7 +105,6 @@ class Board {
         return this.tiles[y*this.size+x]
     }
     getValuesFromStruct(board){
-        board = board.join('');
         for (let e = 0; e<board.length; e++){
             this.tiles[e].value = board[e];
         }
