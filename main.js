@@ -71,8 +71,9 @@ const gameStart =()=>{
     mainSound.play();
     let gamestate = 'normal';
     
-
     const newBoard = new Board (9);
+
+
     newBoard.getValuesFromStruct(board);
     newBoard.draw();
     let selectedNumber = null;

@@ -7,12 +7,12 @@ class Board {
         this.elem = document.body.appendChild(document.createElement('div'));
         this.digits = document.body.appendChild(document.createElement('div'));
         for (let i=0; i<this.tiles.length; i++){
-            this.tiles[i] = { value: 0 }; //access the index of an array
+            this.tiles[i] = { value: 0, quadrant : 0 }; //access the index of an array || n = quadrant number
         }
-        //console.log(this);
+        console.log(this);
     }
     draw(){
-        const {elem, size, digits, totalErrors} = this;
+        const { elem, size, digits, totalErrors } = this;
         let idDiv = 0;
         elem.id = 'board';
         digits.id = 'digits';
@@ -31,6 +31,15 @@ class Board {
                 tile.x = x;
                 tile.y = y;
                 if (tile.value != 0){ d.textContent = tile.value };
+                if (x <= 2 && y <= 2 )                     { tile.quadrant = 1 }    // Top Left Quadrant
+                if (x >= 3 && x <= 5 && y <= 2 )           { tile.quadrant = 2 }    // Top Middle Quadrant
+                if (x > 5  && y <= 2 )                     { tile.quadrant = 3 }    // Top Right Quadrant
+                if (x <= 2 && y > 2  && y <= 5 )           { tile.quadrant = 4 }    // Center Left Quadrant
+                if (x >= 3 && x <= 5 && y > 2 && y <= 5 )  { tile.quadrant = 5 }    // Center Quadrant
+                if (x > 5  && y > 2  && y <= 5 )           { tile.quadrant = 6 }    // Center Right Quadrant
+                if (x <= 2 && y > 5 )                      { tile.quadrant = 7 }    // Bottom Left Quadrant
+                if (x >= 3 && x <= 5 && y>5 )              { tile.quadrant = 8 }    // Bottom Middle Quadrant
+                if (x > 5  && y > 5 )                      { tile.quadrant = 9 }    // Bottom Right Quadrant
             }
         }
         for (let d = 1; d<10; d++){
@@ -40,6 +49,48 @@ class Board {
             e.textContent = d;
         }
     }
+
+    generate(){
+        const {elem, size} = this;
+        const randomNumIndex=()=> { return Math.floor(Math.random() * 8) };
+        const randomNum=()=>      { return Math.floor(Math.random() * 9)+1 };
+        const sudokuNums = [1,2,3,4,5,6,7,8,9];
+        const swap=(arr, x, y)=>{
+            arr = sudokuNums;
+            let oldX = arr[x];
+            arr[x] = arr[y];
+            arr[y] = oldX;
+            return arr
+        }
+        const shuffleFirstArr=(arr)=>{        //Shuffles the first array 50 times!!!
+            for (let i= 50; i>-1; i--){
+                let x = randomNumIndex();
+                let y = randomNumIndex();
+                swap(arr, x , y);
+            }
+            return arr;
+        }
+        const solutionGen=()=>{
+            let origArr = sudokuNums;
+            let arr = [];
+            while (origArr.length > 0){
+                arr.push(origArr.splice(Math.floor(Math.random() * origArr.length), 1));
+            }      
+            return arr
+        }
+    }
+
+    getRow(n){
+
+    }
+    
+    getColumn(n){
+
+    }
+    getAll(){
+
+    }
+
     getTile(x,y){
         if (x < 0 || y<0 || x>this.size-1 || y>this.size-1){return null};
         return this.tiles[y*this.size+x]
