@@ -57,13 +57,13 @@ const gameMenu =()=>{
 }
 
 const gameStart =()=>{
-    mainSound.play();
+    //mainSound.play();
     let gamestate = 'normal';
     
     const newBoard = new Board (9);
     let gen = newBoard.generate();
     console.log('solutionGen: ',gen)
-    //newBoard.draw();
+    newBoard.draw();
     
     let selectedNumber = null;
     let selectedTile;

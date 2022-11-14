@@ -1,3 +1,4 @@
+import {swap} from "./utils.js"
 class Board {
     constructor(size){
         this.tiles = [];
@@ -56,24 +57,18 @@ class Board {
         const randomNumIndex=()=> { return Math.floor(Math.random() * 8) };
         const randomNum=()=>      { return Math.floor(Math.random() * 9)+1 };
         const sudokuNums = [1,2,3,4,5,6,7,8,9];
+        let copyNums = sudokuNums.slice();
         let solution;
-        const swap=(arr, x, y)=>{
-            arr = sudokuNums;
-            let oldX = arr[x];
-            arr[x] = arr[y];
-            arr[y] = oldX;
-            return arr;
-        }
+        
         const shuffleFirstArr=(arr)=>{        //Shuffles the first array 50 times!!!
             for (let i= 50; i>-1; i--){
                 let x = randomNumIndex();
                 let y = randomNumIndex();
                 swap(arr, x , y);
             }
-            return arr;
+            return arr
         }
-        const solutionGen=()=>{
-            let origArr = sudokuNums;
+        const solutionGen=(origArr)=>{
             let arr = [];
             while (origArr.length > 0){
                 arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1)));
@@ -81,10 +76,11 @@ class Board {
             
             return arr;
         }
-        solution = solutionGen(shuffleFirstArr(solution));
+        solution = solutionGen(shuffleFirstArr(copyNums));
+        console.log('numbers: ',sudokuNums)
         
         for (let i = 0; i<solution.length; i++){
-            this.tiles[i].value = solution[i]
+            this.tiles[i].value = solution[i]   // Assigns each board element with its value
         }
         return solution;
     }
