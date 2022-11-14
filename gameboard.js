@@ -1,28 +1,29 @@
 class Board {
     constructor(size){
         this.tiles = [];
+        
         this.size  = size;
         this.tiles.length = this.size*this.size;
         this.totalErrors = document.body.appendChild(document.createElement('div'));
         this.elem = document.body.appendChild(document.createElement('div'));
         this.digits = document.body.appendChild(document.createElement('div'));
         this.tiles.index = 0;
-        for (let i=0; i<this.tiles.length; i++){
-            this.tiles[i] = { index: this.tiles.index++, value: 0, quadrant : 0, x: i % 9, y: parseInt(i/9) }; //access the index||value in grid||quadrant||x && y of an array
-            if (this.tiles[i].x <= 2 && this.tiles[i].y <= 2 )                                               { this.tiles[i].quadrant = 1 }    // Top Left Quadrant
-            if (this.tiles[i].x >= 3 && this.tiles[i].x <= 5 && this.tiles[i].y <= 2 )                       { this.tiles[i].quadrant = 2 }    // Top Middle Quadrant
-            if (this.tiles[i].x > 5  && this.tiles[i].y <= 2 )                                               { this.tiles[i].quadrant = 3 }    // Top Right Quadrant
-            if (this.tiles[i].x <= 2 && this.tiles[i].y > 2  && this.tiles[i].y <= 5 )                       { this.tiles[i].quadrant = 4 }    // Center Left Quadrant
-            if (this.tiles[i].x >= 3 && this.tiles[i].x <= 5 && this.tiles[i].y > 2 && this.tiles[i].y <= 5 ){ this.tiles[i].quadrant = 5 }    // Center Quadrant
-            if (this.tiles[i].x > 5  && this.tiles[i].y > 2  && this.tiles[i].y <= 5 )                       { this.tiles[i].quadrant = 6 }    // Center Right Quadrant
-            if (this.tiles[i].x <= 2 && this.tiles[i].y > 5 )                                                { this.tiles[i].quadrant = 7 }    // Bottom Left Quadrant
-            if (this.tiles[i].x >= 3 && this.tiles[i].x <= 5 && this.tiles[i].y>5 )                          { this.tiles[i].quadrant = 8 }    // Bottom Middle Quadrant
-            if (this.tiles[i].x > 5  && this.tiles[i].y > 5 )                                                { this.tiles[i].quadrant = 9 }    // Bottom Right Quadrant
+        const tile = this.tiles;
+        for (let i=0; i<tile.length; i++){
+            tile[i] = { index: tile.index++, value: 0, quadrant : 0, x: i % 9, y: Math.floor(i/9) }; //access the index||value in grid||quadrant||x && y of an array
+            if (tile[i].x <= 2 && tile[i].y <= 2 )                                    { tile[i].quadrant = 1 }    // Top Left Quadrant
+            if (tile[i].x >= 3 && tile[i].x <= 5 && tile[i].y <= 2 )                  { tile[i].quadrant = 2 }    // Top Middle Quadrant
+            if (tile[i].x > 5  && tile[i].y <= 2 )                                    { tile[i].quadrant = 3 }    // Top Right Quadrant
+            if (tile[i].x <= 2 && tile[i].y > 2  && tile[i].y <= 5 )                  { tile[i].quadrant = 4 }    // Center Left Quadrant
+            if (tile[i].x >= 3 && tile[i].x <= 5 && tile[i].y > 2 && tile[i].y <= 5 ) { tile[i].quadrant = 5 }    // Center Quadrant
+            if (tile[i].x > 5  && tile[i].y > 2  && tile[i].y <= 5 )                  { tile[i].quadrant = 6 }    // Center Right Quadrant
+            if (tile[i].x <= 2 && tile[i].y > 5 )                                     { tile[i].quadrant = 7 }    // Bottom Left Quadrant
+            if (tile[i].x >= 3 && tile[i].x <= 5 && tile[i].y>5 )                     { tile[i].quadrant = 8 }    // Bottom Middle Quadrant
+            if (tile[i].x > 5  && tile[i].y > 5 )                                     { tile[i].quadrant = 9 }    // Bottom Right Quadrant
         }
-        //if (this.tiles[i].index <= 9) {this.tiles.y[i] = 1}
         console.log(this);
     }
-    draw(g){
+    draw(){
         const { elem, size, digits, totalErrors } = this;
         let idDiv = 0;
         elem.id = 'board';
@@ -32,7 +33,6 @@ class Board {
         elem.style.setProperty('--size', size)
         digits.innerHTML = '';
         digits.style.setProperty('--size', size)
-        g = this.generate();
         for (let y=0; y<size;y++){
             for (let x=0; x<size;x++){
                 const d = document.createElement('div');
@@ -40,9 +40,6 @@ class Board {
                 idDiv++;
                 elem.appendChild(d);
                 const tile = this.tiles[y*size+x];
-                tile.x = x;
-                tile.y = y;
-                this.tiles[x].value = g[x];
                 if (tile.value != 0){ d.textContent = tile.value };
             }
         }
@@ -65,7 +62,7 @@ class Board {
             let oldX = arr[x];
             arr[x] = arr[y];
             arr[y] = oldX;
-            return arr
+            return arr;
         }
         const shuffleFirstArr=(arr)=>{        //Shuffles the first array 50 times!!!
             for (let i= 50; i>-1; i--){
@@ -82,12 +79,14 @@ class Board {
                 arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1)));
             }
             
-            return arr
+            return arr;
         }
         solution = solutionGen(shuffleFirstArr(solution));
         
-        
-        return solution
+        for (let i = 0; i<solution.length; i++){
+            this.tiles[i].value = solution[i]
+        }
+        return solution;
     }
     getRow(n){}
     getColumn(n){}
