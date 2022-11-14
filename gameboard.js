@@ -6,12 +6,23 @@ class Board {
         this.totalErrors = document.body.appendChild(document.createElement('div'));
         this.elem = document.body.appendChild(document.createElement('div'));
         this.digits = document.body.appendChild(document.createElement('div'));
+        this.tiles.index = 0;
         for (let i=0; i<this.tiles.length; i++){
-            this.tiles[i] = { value: 0, quadrant : 0 }; //access the index of an array || n = quadrant number
+            this.tiles[i] = { index: this.tiles.index++, value: 0, quadrant : 0, x: i % 9, y: parseInt(i/9) }; //access the index||value in grid||quadrant||x && y of an array
+            if (this.tiles[i].x <= 2 && this.tiles[i].y <= 2 )                                               { this.tiles[i].quadrant = 1 }    // Top Left Quadrant
+            if (this.tiles[i].x >= 3 && this.tiles[i].x <= 5 && this.tiles[i].y <= 2 )                       { this.tiles[i].quadrant = 2 }    // Top Middle Quadrant
+            if (this.tiles[i].x > 5  && this.tiles[i].y <= 2 )                                               { this.tiles[i].quadrant = 3 }    // Top Right Quadrant
+            if (this.tiles[i].x <= 2 && this.tiles[i].y > 2  && this.tiles[i].y <= 5 )                       { this.tiles[i].quadrant = 4 }    // Center Left Quadrant
+            if (this.tiles[i].x >= 3 && this.tiles[i].x <= 5 && this.tiles[i].y > 2 && this.tiles[i].y <= 5 ){ this.tiles[i].quadrant = 5 }    // Center Quadrant
+            if (this.tiles[i].x > 5  && this.tiles[i].y > 2  && this.tiles[i].y <= 5 )                       { this.tiles[i].quadrant = 6 }    // Center Right Quadrant
+            if (this.tiles[i].x <= 2 && this.tiles[i].y > 5 )                                                { this.tiles[i].quadrant = 7 }    // Bottom Left Quadrant
+            if (this.tiles[i].x >= 3 && this.tiles[i].x <= 5 && this.tiles[i].y>5 )                          { this.tiles[i].quadrant = 8 }    // Bottom Middle Quadrant
+            if (this.tiles[i].x > 5  && this.tiles[i].y > 5 )                                                { this.tiles[i].quadrant = 9 }    // Bottom Right Quadrant
         }
+        //if (this.tiles[i].index <= 9) {this.tiles.y[i] = 1}
         console.log(this);
     }
-    draw(){
+    draw(g){
         const { elem, size, digits, totalErrors } = this;
         let idDiv = 0;
         elem.id = 'board';
@@ -21,25 +32,18 @@ class Board {
         elem.style.setProperty('--size', size)
         digits.innerHTML = '';
         digits.style.setProperty('--size', size)
+        g = this.generate();
         for (let y=0; y<size;y++){
             for (let x=0; x<size;x++){
                 const d = document.createElement('div');
-                d.id = idDiv
+                d.id = idDiv;
                 idDiv++;
                 elem.appendChild(d);
                 const tile = this.tiles[y*size+x];
                 tile.x = x;
                 tile.y = y;
+                this.tiles[x].value = g[x];
                 if (tile.value != 0){ d.textContent = tile.value };
-                if (x <= 2 && y <= 2 )                     { tile.quadrant = 1 }    // Top Left Quadrant
-                if (x >= 3 && x <= 5 && y <= 2 )           { tile.quadrant = 2 }    // Top Middle Quadrant
-                if (x > 5  && y <= 2 )                     { tile.quadrant = 3 }    // Top Right Quadrant
-                if (x <= 2 && y > 2  && y <= 5 )           { tile.quadrant = 4 }    // Center Left Quadrant
-                if (x >= 3 && x <= 5 && y > 2 && y <= 5 )  { tile.quadrant = 5 }    // Center Quadrant
-                if (x > 5  && y > 2  && y <= 5 )           { tile.quadrant = 6 }    // Center Right Quadrant
-                if (x <= 2 && y > 5 )                      { tile.quadrant = 7 }    // Bottom Left Quadrant
-                if (x >= 3 && x <= 5 && y>5 )              { tile.quadrant = 8 }    // Bottom Middle Quadrant
-                if (x > 5  && y > 5 )                      { tile.quadrant = 9 }    // Bottom Right Quadrant
             }
         }
         for (let d = 1; d<10; d++){
@@ -77,37 +81,21 @@ class Board {
             while (origArr.length > 0){
                 arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1)));
             }
+            
             return arr
         }
-        const generateBoard=()=>{
-            while (tiles.length != 81){
-                solution = solutionGen(shuffleFirstArr(solution));
-                console.log(solution)
-            }
-            return solution
-        }
-        return solution = generateBoard();
+        solution = solutionGen(shuffleFirstArr(solution));
+        
+        
+        return solution
     }
-
-    getRow(n){
-
-    }
-    
-    getColumn(n){
-
-    }
-    getAll(){
-
-    }
+    getRow(n){}
+    getColumn(n){}
+    getAll(){}
 
     getTile(x,y){
         if (x < 0 || y<0 || x>this.size-1 || y>this.size-1){return null};
-        return this.tiles[y*this.size+x]
-    }
-    getValuesFromStruct(board){
-        for (let e = 0; e<board.length; e++){
-            this.tiles[e].value = board[e];
-        }
+        return this.tiles[y*this.size+x];
     }
 }
 
