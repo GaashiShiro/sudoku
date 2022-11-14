@@ -1,4 +1,4 @@
-import {swap} from "./utils.js"
+import {swap, shuffleArray} from "./utils.js"
 class Board {
     constructor(size){
         this.tiles = [];
@@ -34,6 +34,7 @@ class Board {
         elem.style.setProperty('--size', size)
         digits.innerHTML = '';
         digits.style.setProperty('--size', size)
+        // Drawing Board
         for (let y=0; y<size;y++){
             for (let x=0; x<size;x++){
                 const d = document.createElement('div');
@@ -44,7 +45,8 @@ class Board {
                 if (tile.value != 0){ d.textContent = tile.value };
             }
         }
-        for (let d = 1; d<10; d++){
+        // Drawing Digits below Board
+        for (let d = 1; d<10; d++){             
             const e = document.createElement('div');
             digits.appendChild(e);
             e.classList = "empty";
@@ -54,31 +56,26 @@ class Board {
 
     generate(){
         const { elem, size, tiles } = this;
-        const randomNumIndex=()=> { return Math.floor(Math.random() * 8) };
-        const randomNum=()=>      { return Math.floor(Math.random() * 9)+1 };
         const sudokuNums = [1,2,3,4,5,6,7,8,9];
         let copyNums = sudokuNums.slice();
+        copyNums = shuffleArray(copyNums, 50)
         let solution;
         
-        const shuffleFirstArr=(arr)=>{        //Shuffles the first array 50 times!!!
-            for (let i= 50; i>-1; i--){
-                let x = randomNumIndex();
-                let y = randomNumIndex();
-                swap(arr, x , y);
-            }
-            return arr
-        }
         const solutionGen=(origArr)=>{
             let arr = [];
-            while (origArr.length > 0){
-                arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1)));
-            }
-            
+            while ( origArr.length > 0 ){ arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1))) };
             return arr;
         }
-        solution = solutionGen(shuffleFirstArr(copyNums));
-        console.log('numbers: ',sudokuNums)
-        
+
+        const generateTileContent =(index)=>{
+            //tiles[index] = 9;  <--- Example
+        }
+
+        let rowOne = solutionGen(copyNums);
+        let rowTwo = solutionGen(rowOne.slice());
+        let rowThree = solutionGen(rowTwo.slice());
+        solution = rowOne.concat(rowTwo.concat(rowThree))
+        console.log('row one: ',rowOne,'\n','row two: ', rowTwo,'\n','row three: ', rowThree)
         for (let i = 0; i<solution.length; i++){
             this.tiles[i].value = solution[i]   // Assigns each board element with its value
         }
