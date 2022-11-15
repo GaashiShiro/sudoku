@@ -61,8 +61,7 @@ const gameStart =()=>{
     let gamestate = 'normal';
     
     const newBoard = new Board (9);
-    let gen = newBoard.generate();
-    console.log('solutionGen: ',gen)
+    newBoard.generate();
     newBoard.draw();
     
     let selectedNumber = null;

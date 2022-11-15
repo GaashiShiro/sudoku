@@ -66,25 +66,46 @@ class Board {
             while ( origArr.length > 0 ){ arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1))) };
             return arr;
         }
-
-        const generateTileContent =(index)=>{
-            //tiles[index] = 9;  <--- Example
-            let random = randomNum();  //Gets random number between 1-9
-            
-            console.log(this.getQuadrant(1))
-            console.log('Random Number: ',random)
-            console.log('Quadrant is : ',this.getQuadrant(1).map(e => e.value));
-            if ((this.getQuadrant(1).find(e => e.value === random)) == undefined) { return solution.push(random) }
-        }
-
+        
         let rowOne = solutionGen(copyNums);
         solution = rowOne;
-        generateTileContent(10)
         
         for (let i = 0; i<solution.length; i++){
             this.tiles[i].value = solution[i]   // Assigns each board element with its value
         }
-        return solution;
+
+        const generateTileContent =(index)=>{
+            //tiles[index] = 9;  <--- Example
+            let random = randomNum();  //Gets random number between 1-9
+            const q1 = this.getQuadrant(1);
+            const q2 = this.getQuadrant(2);
+            const q3 = this.getQuadrant(3);
+            const r1 = this.getRow(1);
+            this.tiles[index].value = random;
+            //if (!r1.find(t => t.value == random)) { this.tiles[index].value = random }
+        }
+
+        generateTileContent(9);
+        generateTileContent(10);
+        generateTileContent(11);
+        generateTileContent(12);
+        generateTileContent(13);
+        generateTileContent(14);
+        generateTileContent(15);
+        generateTileContent(16);
+        generateTileContent(17);
+        generateTileContent(18);
+        generateTileContent(19);
+        generateTileContent(20);
+        generateTileContent(21);
+        generateTileContent(22);
+        generateTileContent(23);
+        generateTileContent(24);
+        generateTileContent(25);
+        generateTileContent(26);
+        generateTileContent(27);
+        generateTileContent(28);
+
     }
 
     getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
