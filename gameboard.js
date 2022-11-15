@@ -77,14 +77,30 @@ class Board {
         const generateTileContent =(index)=>{
             //tiles[index] = 9;  <--- Example
             let random = randomNum();  //Gets random number between 1-9
-            const q1 = this.getQuadrant(1);
-            const q2 = this.getQuadrant(2);
-            const q3 = this.getQuadrant(3);
-            const r1 = this.getRow(1);
-            this.tiles[index].value = random;
-            //if (!r1.find(t => t.value == random)) { this.tiles[index].value = random }
+            const tile         = this.tiles[index];
+            const tileRow      = this.tiles[index].x;
+            const tileColumn   = this.tiles[index].y;
+            const tileQuadrant = this.tiles[index].quadrant;
+            const findQuad     = this.getQuadrant(tileQuadrant);
+            const findCol      = this.getRow(tileRow);
+            const findRow      = this.getColumn(tileColumn);
+
+            if (tile.value == 0) {
+                if (!findQuad.find(t => t.value == random)){
+                    if (!findRow.find(t => t.value == random)){
+                        if (!findCol.find(t => t.value == random)){
+                            tile.value = random;
+                        }
+                    }
+                }
+            }            
         }
 
+        for (let i=9; i<this.tiles.length; i++){
+                generateTileContent(i);
+        }
+        
+        /*
         generateTileContent(9);
         generateTileContent(10);
         generateTileContent(11);
@@ -104,7 +120,7 @@ class Board {
         generateTileContent(25);
         generateTileContent(26);
         generateTileContent(27);
-        generateTileContent(28);
+        generateTileContent(28);*/
 
     }
 
