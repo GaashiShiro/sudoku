@@ -20,4 +20,4 @@ const shuffleArray=(arr, times)=>{        //Shuffles the first array number of t
     return arr
 }
 
-export { swap , shuffleArray, randomNumIndex }
+export { swap , shuffleArray, randomNumIndex, randomNum }

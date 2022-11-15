@@ -1,4 +1,4 @@
-import {swap, shuffleArray} from "./utils.js"
+import {swap, shuffleArray, randomNum} from "./utils.js"
 class Board {
     constructor(size){
         this.tiles = [];
@@ -69,20 +69,28 @@ class Board {
 
         const generateTileContent =(index)=>{
             //tiles[index] = 9;  <--- Example
+            let random = randomNum();  //Gets random number between 1-9
+            
+            console.log(this.getQuadrant(1))
+            console.log('Random Number: ',random)
+            console.log('Quadrant is : ',this.getQuadrant(1).map(e => e.value));
+            if ((this.getQuadrant(1).find(e => e.value === random)) == undefined) { return solution.push(random) }
         }
 
         let rowOne = solutionGen(copyNums);
-        let rowTwo = solutionGen(rowOne.slice());
-        let rowThree = solutionGen(rowTwo.slice());
-        solution = rowOne.concat(rowTwo.concat(rowThree))
-        console.log('row one: ',rowOne,'\n','row two: ', rowTwo,'\n','row three: ', rowThree)
+        solution = rowOne;
+        generateTileContent(10)
+        
         for (let i = 0; i<solution.length; i++){
             this.tiles[i].value = solution[i]   // Assigns each board element with its value
         }
         return solution;
     }
-    getRow(n){}
-    getColumn(n){}
+
+    getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
+
+    getRow(num){ return this.tiles.filter(e => e.x == num) };
+    getColumn(num){ return this.tiles.filter(e => e.y == num) };
     getAll(){}
 
     getTile(x,y){
