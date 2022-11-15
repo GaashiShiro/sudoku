@@ -97,7 +97,7 @@ class Board {
         }
 
         for (let i=9; i<this.tiles.length; i++){
-                generateTileContent(i);
+            generateTileContent(i);
         }
         
         /*
