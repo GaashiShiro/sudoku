@@ -55,28 +55,72 @@ class Board {
     }
 
     generate(){
-        const { elem, size, tiles } = this;
-        const sudokuNums = [1,2,3,4,5,6,7,8,9];
-        let copyNums = sudokuNums.slice();
-        copyNums = shuffleArray(copyNums, 50)
-        let solution;
+        let template = "387491625241568379569327418758619234123784596496253187934176852675832941812945763";
+        let randomN = randomNum();
+        for (let i=0; i<this.tiles.length; i++){ this.tiles[i].value = template[i] }                                  // Assigns each board element with its value
         
-        const solutionGen=(origArr)=>{
-            let arr = [];
-            while ( origArr.length > 0 ){ arr.push(Number(origArr.splice(Math.floor(Math.random() * origArr.length), 1))) };
-            return arr;
-        }
         
-        let rowOne = solutionGen(copyNums);
-        solution = rowOne;
-        
-        for (let i = 0; i<solution.length; i++){
-            this.tiles[i].value = solution[i]   // Assigns each board element with its value
+        const shuffleColumns=(times)=>{
+            for (let x=0; x<9; x=x+3) {                                          //Loop for each 3 pairs
+                let col0 = this.getRow(x);
+                let col1 = this.getRow(x+1);
+                let col2 = this.getRow(x+2);
+                    
+                for (let t=times; t--;){                            // Loop for number of shuffles
+                    for (let  i=0; i<9; i++){                       // Loop all results in that column        
+                        [col0[i].value, col1[i].value] = [col1[i].value, col0[i].value];
+                        [col1[i].value, col2[i].value] = [col2[i].value, col1[i].value];
+                    }
+                }
+            }
         }
 
-        const generateTileContent =(index)=>{
-            //tiles[index] = 9;  <--- Example
-            let random = randomNum();  //Gets random number between 1-9
+        const shuffleRows=(times)=>{
+            for (let x=0; x<9; x=x+3) {
+                let row0 = this.getColumn(x);
+                let row1 = this.getColumn(x+1);
+                let row2 = this.getColumn(x+2);
+                    
+                for (let t=times; t--;){
+                    for (let  i=0; i<9; i++){
+                        [row0[i].value, row1[i].value] = [row1[i].value, row0[i].value];
+                        [row1[i].value, row2[i].value] = [row2[i].value, row1[i].value];
+                    }
+                }
+            }
+        }
+
+        console.log(this.getQuadrant(0))
+        /*
+        const shuffleQuad=(times)=>{
+            for (let x=0; x<9; x=x+3) {
+                let row0 = this.getQuadrant(x);
+                let row1 = this.getQuadrant(x+1);
+                let row2 = this.getQuadrant(x+2);
+                    
+                for (let t=times; t--;){
+                    for (let  i=0; i<9; i++){
+                        [row0[i].value, row1[i].value] = [row1[i].value, row0[i].value];
+                        [row1[i].value, row2[i].value] = [row2[i].value, row1[i].value];
+                    }
+                }
+            }
+        }
+        */
+        //shuffleColumns(randomN) 
+        //shuffleRows(randomN)
+        //shuffleQuad(randomN)
+
+        const removeRandom=(num)=>{
+            let copySol = template.slice();
+            
+            console.log('CopySolution ',copySol[1])
+            for (let i=0; i<copySol.length; i++){
+                console.log(copySol[i]);
+            }
+        }
+        
+        /*
             const tile         = this.tiles[index];
             const tileRow      = this.tiles[index].x;
             const tileColumn   = this.tiles[index].y;
@@ -84,52 +128,13 @@ class Board {
             const findQuad     = this.getQuadrant(tileQuadrant);
             const findCol      = this.getRow(tileRow);
             const findRow      = this.getColumn(tileColumn);
-
-            if (tile.value == 0) {
-                if (!findQuad.find(t => t.value == random)){
-                    if (!findRow.find(t => t.value == random)){
-                        if (!findCol.find(t => t.value == random)){
-                            tile.value = random;
-                        }
-                    }
-                }
-            }            
-        }
-
-        for (let i=9; i<this.tiles.length; i++){
-            generateTileContent(i);
-        }
-        
-        /*
-        generateTileContent(9);
-        generateTileContent(10);
-        generateTileContent(11);
-        generateTileContent(12);
-        generateTileContent(13);
-        generateTileContent(14);
-        generateTileContent(15);
-        generateTileContent(16);
-        generateTileContent(17);
-        generateTileContent(18);
-        generateTileContent(19);
-        generateTileContent(20);
-        generateTileContent(21);
-        generateTileContent(22);
-        generateTileContent(23);
-        generateTileContent(24);
-        generateTileContent(25);
-        generateTileContent(26);
-        generateTileContent(27);
-        generateTileContent(28);*/
-
+            */
     }
 
     getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
 
     getRow(num){ return this.tiles.filter(e => e.x == num) };
     getColumn(num){ return this.tiles.filter(e => e.y == num) };
-    getAll(){}
-
     getTile(x,y){
         if (x < 0 || y<0 || x>this.size-1 || y>this.size-1){return null};
         return this.tiles[y*this.size+x];

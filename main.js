@@ -118,10 +118,8 @@ const gameStart =()=>{
                     button.remove();
                     lost.remove();
                     document.body.style.backgroundImage = '';
-    })
-
+                })
             }
-            
         }
     });
 }
