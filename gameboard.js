@@ -1,4 +1,4 @@
-import {swap, shuffleArray, randomNum} from "./utils.js"
+import {swap, shuffleArray, randomNum, randomNumIndex} from "./utils.js"
 class Board {
     constructor(size){
         this.tiles = [];
@@ -58,6 +58,7 @@ class Board {
         let template = "387491625241568379569327418758619234123784596496253187934176852675832941812945763";
         let randomN1 = Math.floor(Math.random() * 10);
         let randomN2 = Math.floor(Math.random() * 10);
+        let solution;
         for (let i=0; i<this.tiles.length; i++){ this.tiles[i].value = template[i] }                                  // Assigns each board element with its value
         
         
@@ -91,64 +92,17 @@ class Board {
             }
         }
 
-
+        solution = shuffleRows()
+        solution = shuffleColumns()
         
-        const shuffleQuadColumns=(times)=>{
-            let quad0 = this.getQuadrant(0);
-            let quad1 = this.getQuadrant(3);
-            let quad2 = this.getQuadrant(6);
-
-            let quad3 = this.getQuadrant(1);
-            let quad4 = this.getQuadrant(4);
-            let quad5 = this.getQuadrant(7);
-                
-            console.log(quad0)
-            
-            /*for (let  i=0; i<9; i++){
-                [quad0[i].value, quad1[i].value, quad2[i].value] = [quad3[i].value, quad4[i].value, quad5[i].value];
-                [quad3[i].value, quad4[i].value, quad5[i].value] = [quad0[i].value, quad1[i].value, quad2[i].value];
-
-            }*/
-            
-            
-            
-            /*
-            for (let t=times; t--;){
-                for (let  i=0; i<9; i++){
-                    [row0[i].value, row1[i].value] = [row1[i].value, row0[i].value];
-                    [row1[i].value, row2[i].value] = [row2[i].value, row1[i].value];
-                }
-            }
-            */
-        }
-
-
-        shuffleRows()
-        shuffleColumns()
-
-        
-
-        //shuffleQuadColumns(randomN)
-        //shuffleQuadRows(randomN)
-
         const removeRandom=(num)=>{
-            let copySol = template.slice();
-            
-            console.log('CopySolution ',copySol[1])
-            for (let i=0; i<copySol.length; i++){
-                console.log(copySol[i]);
+            for (let i=0; i<num; i++){
+                let n = (Math.floor(Math.random()*80));
+                this.tiles[n].value = 0; 
             }
+                      
         }
-        
-        /*
-            const tile         = this.tiles[index];
-            const tileRow      = this.tiles[index].x;
-            const tileColumn   = this.tiles[index].y;
-            const tileQuadrant = this.tiles[index].quadrant;
-            const findQuad     = this.getQuadrant(tileQuadrant);
-            const findCol      = this.getRow(tileRow);
-            const findRow      = this.getColumn(tileColumn);
-            */
+        removeRandom(55)
     }
 
     getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
