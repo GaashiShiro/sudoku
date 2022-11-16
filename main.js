@@ -10,17 +10,9 @@ clickSound.volume = 0.3;
 let wrongClick = new Audio('toom_click.wav');
 wrongClick.volume = 0.5;
 
-let solution = [
-    "387491625",
-    "241568379",
-    "569327418",
-    "758619234",
-    "123784596",
-    "496253187",
-    "934176852",
-    "675832941",
-    "812945763"
-]
+const newBoard = new Board (9);
+let solution = newBoard.generate();
+newBoard.removeRandom(54);
 
 const gameOver =()=>{
     // game over screen?
@@ -57,13 +49,12 @@ const gameMenu =()=>{
 }
 
 const gameStart =()=>{
-    //mainSound.play();
+    mainSound.play();
     let gamestate = 'normal';
     
-    const newBoard = new Board (9);
-    newBoard.generate();
-    newBoard.draw();
     
+    newBoard.draw();
+
     let selectedNumber = null;
     let selectedTile;
 
@@ -75,7 +66,7 @@ const gameStart =()=>{
         for(let i=0; i<digits.length; i++) { digits[i].className = "empty" }
         selNum.className = "number-selected"
         selectedNumber = e.target.textContent;
-        console.log(selectedNumber)
+        //console.log(selectedNumber)
 
         let board = document.getElementById('board').children
         for(let i=0; i<board.length; i++) {
@@ -124,8 +115,8 @@ const gameStart =()=>{
     });
 }
 const main =()=>{
-    //gameMenu();
-    gameStart();      //Temporary start without menu
+    gameMenu();
+    //gameStart();      //Temporary start without menu
 }
 
 main();

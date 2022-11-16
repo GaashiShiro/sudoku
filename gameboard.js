@@ -58,9 +58,8 @@ class Board {
         let template = "387491625241568379569327418758619234123784596496253187934176852675832941812945763";
         let randomN1 = Math.floor(Math.random() * 10);
         let randomN2 = Math.floor(Math.random() * 10);
-        let solution;
-        for (let i=0; i<this.tiles.length; i++){ this.tiles[i].value = template[i] }                                  // Assigns each board element with its value
         
+        for (let i=0; i<this.tiles.length; i++){ this.tiles[i].value = template[i] }                                  // Assigns each board element with its value
         
         const shuffleColumns=()=>{
             for (let x=0; x<9; x=x+3) {                                          //Loop for each 3 pairs
@@ -76,7 +75,6 @@ class Board {
                 }
             }
         }
-
         const shuffleRows=()=>{
             for (let x=0; x<9; x=x+3) {
                 let row0 = this.getColumn(x);
@@ -91,22 +89,23 @@ class Board {
                 }
             }
         }
-
-        solution = shuffleRows()
-        solution = shuffleColumns()
+        shuffleRows();
+        shuffleColumns();
         
-        const removeRandom=(num)=>{
-            for (let i=0; i<num; i++){
-                let n = (Math.floor(Math.random()*80));
-                this.tiles[n].value = 0; 
-            }
-                      
-        }
-        removeRandom(55)
+        const copyOfTiles = this.tiles.map(t => t.value);
+        console.log(copyOfTiles)
+        return copyOfTiles
     }
 
-    getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
+    removeRandom(num){             // num hides a certain number of tiles by changing them to 0
+        for (let i=0; i<num; i++){
+            let n = (Math.floor(Math.random()*80));
+            this.tiles[n].value = 0; 
+        }
+    }
+    
 
+    getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
     getRow(num){ return this.tiles.filter(e => e.x == num) };
     getColumn(num){ return this.tiles.filter(e => e.y == num) };
     getTile(x,y){
