@@ -10,9 +10,7 @@ clickSound.volume = 0.3;
 let wrongClick = new Audio('toom_click.wav');
 wrongClick.volume = 0.5;
 
-const newBoard = new Board (9);
-let solution = newBoard.generate();
-newBoard.removeRandom(54);
+
 
 const gameOver =()=>{
     // game over screen?
@@ -52,7 +50,9 @@ const gameStart =()=>{
     mainSound.play();
     let gamestate = 'normal';
     
-    
+    const newBoard = new Board (9);
+    let solution = newBoard.generate();
+    newBoard.removeRandom(54);
     newBoard.draw();
 
     let selectedNumber = null;
