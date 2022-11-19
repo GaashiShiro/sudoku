@@ -1,13 +1,12 @@
 import { Board } from "./gameboard.js";
-/*
-Temporary Board
-*/
+import {findIndexOfSolution, findSolution } from "./utils.js"
 
-let mainSound = new Audio('lighthearted_loop.ogg');
+
+let mainSound = new Audio('sound/lighthearted_loop.ogg');
 mainSound.loop=true;
-let clickSound = new Audio('click_sound_1.mp3');
+let clickSound = new Audio('sound/click_sound_1.mp3');
 clickSound.volume = 0.3;
-let wrongClick = new Audio('toom_click.wav');
+let wrongClick = new Audio('sound/toom_click.wav');
 wrongClick.volume = 0.5;
 
 
@@ -16,19 +15,10 @@ const gameOver =()=>{
     // game over screen?
 }
 
-const findIndexOfSolution=(solution, target)=>{
-    solution = solution.join('');
-    let result = target;
-    return result;
-}
 
-const findSolution=(solution, target)=>{
-    solution = solution.join('');
-    return solution[target]
-}
 
 const gameMenu =()=>{
-    document.body.style.backgroundImage = "url('sudoku_game_logo2.png')";
+    document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundPosition = 'top center'
     const m = document.createElement('div');
@@ -96,7 +86,7 @@ const gameStart =()=>{
                 document.getElementById('error').remove();
                 document.getElementById('board').remove();
                 document.getElementById('digits').remove();
-                document.body.style.backgroundImage = "url('sudoku_game_logo2.png')";
+                document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
                 const lost = document.body.appendChild(document.createElement('div'))
                 lost.id = 'losing-screen'
                 lost.fontSize = '44px'

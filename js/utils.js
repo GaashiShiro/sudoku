@@ -20,4 +20,21 @@ const shuffleArray=(arr, times)=>{        //Shuffles the first array number of t
     return arr
 }
 
-export { swap , shuffleArray, randomNumIndex, randomNum }
+const findIndexOfSolution=(solution, target)=>{
+    solution = solution.join('');
+    let result = target;
+    return result;
+}
+
+const findSolution=(solution, target)=>{
+    solution = solution.join('');
+    return solution[target];
+}
+
+export {
+    swap,
+    shuffleArray,
+    randomNumIndex, randomNum,
+    findIndexOfSolution,
+    findSolution
+}
