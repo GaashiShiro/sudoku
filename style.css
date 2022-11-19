@@ -7,6 +7,7 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
+    user-select: none;
 }
 
 #error {
@@ -25,6 +26,7 @@ body {
     box-shadow: 1px 1px 16px 1px rgb(154, 207, 231);
     grid-template-columns: repeat(var(--size), 1fr);
     cursor: pointer;
+    user-select: none;
 }
 
 
@@ -36,7 +38,7 @@ body {
     background-color: rgb(44, 159, 212);
     box-shadow: 1px 1px 16px 1px rgb(154, 207, 231);
     grid-template-columns: repeat(var(--size), 1fr);
-
+    user-select: none;
 }
 
 #digits > div {

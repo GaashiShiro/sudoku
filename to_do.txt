@@ -1,18 +1,25 @@
-you could maybe do a short animation
-when you click a number and it turns the matching numbers to bold
-you could make it zoom in
-rather than abruptly changing to bold
-it should be a subtle effect
-you can try it by making all the tiles have "transition: font-size 300ms"
-and ofc play around with the transition duration, 300ms is quite fast
+you could maybe do a short animation                                                    |
+when you click a number and it turns the matching numbers to bold                       |
+you could make it zoom in                                                               |
+rather than abruptly changing to bold                                                   |
+it should be a subtle effect                                                            |
+you can try it by making all the tiles have "transition: font-size 300ms"               |       Done
+and ofc play around with the transition duration, 300ms is quite fast                   |
 
 "you lost" is barely readable
-you need to add some hints on how to play the game
-or make a demo
-or tutorial
+
+Make a demo or tutorial (you need to add some hints on how to play the game)
 
 also it begs for more feedback
 it doesn't have to be flashy, but some small reactions to clicks etc. is needed
 
 the sfx already gives a good clue
 but visuals would definitely boost the experience
+
+
+Clicking numbers generated shouldn't give error, only if the number was placed by the user
+
+Timer                   | Added but WiP
+
+Game Difficulty (easy, medium, hard and extreme for leaderboard?)
+

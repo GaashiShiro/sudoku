@@ -32,8 +32,28 @@ const gameMenu =()=>{
     })
 }
 
+const gameDifficulty =()=>{}
+
+
+const startTimer =()=>{
+    const t = document.createElement('div');
+    let timerInterval;
+    t.id = 'timer';
+    document.body.appendChild(t);
+    clearInterval(timerInterval); // clears timer after restart
+    timerInterval = setInterval(function () {
+        let second = 0, minute = 0, hour = 0; // clear the variables
+        timer.textContent = (hour ? hour + ':' : '') + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second);
+        second++;
+        if (second == 60) { minute++; second = 0; } // If so, we add a minute and reset our seconds to 0
+        if (minute == 60) { hour++; minute = 0;} // If we hit 60 minutes "one hour" we reset the minutes and plus an hour
+    }, 1000);
+}
+
 const gameStart =()=>{
     mainSound.play();
+    startTimer();
+    
     let gamestate = 'normal';
     
     const newBoard = new Board (9);
