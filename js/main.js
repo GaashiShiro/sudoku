@@ -75,7 +75,7 @@ const gameStart =(mode)=>{
     mainSound.play();
     startTimer();
     let diff = gameDifficulty(mode);
-    console.log(diff)
+    console.log('Tiles Hidden: ',diff,'\n','Mode: ', mode)
     let gamestate = 'normal';
     
     const newBoard = new Board (9);
