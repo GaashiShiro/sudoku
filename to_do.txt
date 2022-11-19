@@ -11,9 +11,6 @@ you need to add some hints on how to play the game
 or make a demo
 or tutorial
 
-and when i hit play again it hangs
-on empty screen
-that kind of little tweaking
 also it begs for more feedback
 it doesn't have to be flashy, but some small reactions to clicks etc. is needed
 

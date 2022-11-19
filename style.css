@@ -57,6 +57,7 @@ body {
     display: flex;
     justify-content: center; /* horizontal */
     align-items: center;     /* vertical */
+    transition: font-size 200ms;
 }
 
 

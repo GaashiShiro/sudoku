@@ -9,13 +9,9 @@ clickSound.volume = 0.3;
 let wrongClick = new Audio('sound/toom_click.wav');
 wrongClick.volume = 0.5;
 
-
-
 const gameOver =()=>{
     // game over screen?
 }
-
-
 
 const gameMenu =()=>{
     document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
