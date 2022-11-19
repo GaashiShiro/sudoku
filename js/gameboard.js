@@ -22,7 +22,7 @@ class Board {
             if (tile[i].x >= 3 && tile[i].x <= 5 && tile[i].y>5 )                     { tile[i].quadrant = 7 }    // Bottom Middle Quadrant
             if (tile[i].x > 5  && tile[i].y > 5 )                                     { tile[i].quadrant = 8 }    // Bottom Right Quadrant
         }
-        console.log(this);
+        //console.log(this);
     }
     draw(){
         const { elem, size, digits, totalErrors } = this;
@@ -93,7 +93,7 @@ class Board {
         shuffleColumns();
         
         const copyOfTiles = this.tiles.map(t => t.value);
-        console.log(copyOfTiles)
+        //console.log(copyOfTiles)
         return copyOfTiles
     }
 

@@ -23,3 +23,6 @@ Timer                   | Added but WiP
 
 Game Difficulty (easy, medium, hard and extreme for leaderboard?)
 
+Levels for all game modes, and have fast-pencil
+so they would gain that by watching ads or playing games
+and that would speed up the leaderboard/ extreme mode

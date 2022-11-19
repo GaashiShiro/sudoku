@@ -1,5 +1,6 @@
-const randomNumIndex=()=> { return Math.floor(Math.random() * 8) };
-const randomNum=()=>      { return Math.floor(Math.random() * 9)+1 };
+const randomNumIndex=()=>     { return Math.floor(Math.random() * 8) };
+const randomNum=()=>          { return Math.floor(Math.random() * 9)+1 };
+const diffRandNum=(min, max)=> { return Math.floor(Math.random() * (max - min +1) + min) }
 
 const swap=(arr, x, y)=>{   //Swaps any array indexes
     if (x >= arr.length || x < 0 ){ console.log('X index is not defined in the array'); return }
@@ -36,5 +37,6 @@ export {
     shuffleArray,
     randomNumIndex, randomNum,
     findIndexOfSolution,
-    findSolution
+    findSolution,
+    diffRandNum
 }

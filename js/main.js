@@ -1,5 +1,5 @@
 import { Board } from "./gameboard.js";
-import {findIndexOfSolution, findSolution } from "./utils.js"
+import {findIndexOfSolution, findSolution, diffRandNum } from "./utils.js"
 
 
 let mainSound = new Audio('sound/lighthearted_loop.ogg');
@@ -8,32 +8,6 @@ let clickSound = new Audio('sound/click_sound_1.mp3');
 clickSound.volume = 0.3;
 let wrongClick = new Audio('sound/toom_click.wav');
 wrongClick.volume = 0.5;
-
-const gameOver =()=>{
-    // game over screen?
-}
-
-const gameMenu =()=>{
-    document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundPosition = 'top center'
-    const m = document.createElement('div');
-    m.id = 'menu';
-    document.body.appendChild(m);
-    const menu = document.getElementById('menu');
-    const button = menu.appendChild(document.createElement('button'))
-    button.textContent = 'Play Game';
-
-    button.addEventListener('click', (e)=>{
-        gameStart();
-        m.remove();
-        button.remove();
-        document.body.style.backgroundImage = '';
-    })
-}
-
-const gameDifficulty =()=>{}
-
 
 const startTimer =()=>{
     const t = document.createElement('div');
@@ -50,27 +24,75 @@ const startTimer =()=>{
     }, 1000);
 }
 
-const gameStart =()=>{
+const gameOver =()=>{
+    // game over screen?
+}
+
+const gameMenu =()=>{
+    document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = 'top center';
+    const m = document.createElement('div');
+    m.id = 'menu';
+    document.body.appendChild(m);
+    const menu = document.getElementById('menu');
+    const button = menu.appendChild(document.createElement('button'));
+    button.textContent = 'Play Game';
+
+    button.addEventListener('click', (e)=>{
+        m.remove();
+        //button.remove();
+        const d = document.createElement('div');
+        d.id = 'difficulty';
+        document.body.appendChild(d);
+        const diff          = document.getElementById('difficulty');
+        const ezBut         = diff.appendChild(document.createElement('button'));
+        ezBut.textContent   = 'Easy';
+        const meBut         = diff.appendChild(document.createElement('button'));
+        meBut.textContent   = 'Medium';
+        const hardBut       = diff.appendChild(document.createElement('button'));
+        hardBut.textContent = 'Hard';
+        const extBut        = diff.appendChild(document.createElement('button'));
+        extBut.textContent  = 'Leaderboard';
+        d.addEventListener('click', (e)=>{
+            let mode;
+            if (e.target == ezBut)   { mode = 'easy';   d.remove(); gameStart(mode); document.body.style.backgroundImage = ''; return }
+            if (e.target == meBut)   { mode = 'medium'; d.remove(); gameStart(mode); document.body.style.backgroundImage = ''; return }
+            if (e.target == hardBut) { mode = 'hard';   d.remove(); gameStart(mode); document.body.style.backgroundImage = ''; return }
+            if (e.target == extBut)  { mode = 'extreme';d.remove(); gameStart(mode); document.body.style.backgroundImage = ''; return }
+        })
+    })
+}
+
+const gameDifficulty =(mode)=>{
+    if (mode == "easy")    { return diffRandNum(40, 45) };
+    if (mode == "medium")  { return diffRandNum(45, 50) };
+    if (mode == "hard")    { return diffRandNum(55, 58) };
+    if (mode == "extreme") { return diffRandNum(65, 69) };
+}
+
+const gameStart =(mode)=>{
     mainSound.play();
     startTimer();
-    
+    let diff = gameDifficulty(mode);
+    console.log(diff)
     let gamestate = 'normal';
     
     const newBoard = new Board (9);
     let solution = newBoard.generate();
-    newBoard.removeRandom(54);
+    newBoard.removeRandom(diff);
     newBoard.draw();
 
     let selectedNumber = null;
     let selectedTile;
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
-        if (gamestate != 'normal') return
+        if (gamestate != 'normal') return;
         clickSound.play();
         let selNum = e.target;
-        let digits = document.getElementById('digits').children
+        let digits = document.getElementById('digits').children;
         for(let i=0; i<digits.length; i++) { digits[i].className = "empty" }
-        selNum.className = "number-selected"
+        selNum.className = "number-selected";
         selectedNumber = e.target.textContent;
         //console.log(selectedNumber)
 
@@ -82,10 +104,10 @@ const gameStart =()=>{
     });
 
     newBoard.elem.addEventListener("click", (e)=>{      // Event clicker for board
-        let totalErrors = document.getElementById('error')
-        if (gamestate != 'normal') return
+        let totalErrors = document.getElementById('error');
+        if (gamestate != 'normal') return;
         selectedTile = e.target;
-        let indexSolution = findIndexOfSolution(solution, selectedTile.id)
+        let indexSolution = findIndexOfSolution(solution, selectedTile.id);
         //console.log('Index Solution: ', indexSolution);
         //console.log('Index: ', selectedTile.id);
         //console.log('Tile: ',selectedTile);
