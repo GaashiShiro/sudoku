@@ -1,3 +1,35 @@
+html, body {                    /* Makes sure the parent frame is fully utilized and the game will float inside it */
+    display:flex;
+    position:absolute;
+    margin:0;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;    
+    background:black;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    user-select:none;
+}
+#game {                    
+    position:relative;
+    width:1152px;                /* Change width/height to match your game resolution. PPG frame size is 1152 x 648 pixels (16:9) */
+    min-width:1152px;
+    height:648px;
+    min-height:648px;    
+    overflow:hidden;
+    background: #333;    
+    zoom:1;    
+}
+
+
+
+
+
+
+
+
 body {
     background-color: rgb(204, 231, 247);
     font-family: 'Audiowide';
@@ -105,4 +137,8 @@ button:active {
     background-color: rgb(44, 159, 212);
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+}
+
+#losing-screen {
+    font-size: 54px;
 }
