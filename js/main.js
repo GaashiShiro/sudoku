@@ -81,7 +81,8 @@ const findNumbers =(board)=>{
 }
 
 const countNumbers=()=>{
-    let numbers = {'1':9 , '2':9, '3':9, '4':9, '5':9, '6':9, '7':9, '8':9, '9':9 }
+    let numbers = {'1':9 , '2':9, '3':9, '4':9, '5':9, '6':9, '7':9, '8':9, '9':9 };
+    return numbers;
 }
 
 const gameStart =(mode)=>{
@@ -94,7 +95,7 @@ const gameStart =(mode)=>{
     let solution = newBoard.generate();
     newBoard.removeRandom(diff);
     newBoard.draw();
-
+    console.log(countNumbers())
     let selectedNumber = null;
     let selectedTile;
     let board = document.getElementById('board').children;
