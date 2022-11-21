@@ -75,14 +75,11 @@ const gameDifficulty =(mode)=>{
 }
 
 const findNumbers =(board)=>{
+    let arr = [];
     for (let i=0; i<board.length; i++){
-        if (board[i].textContent != 0) console.log(board[i].textContent)
+        if (board[i].textContent != 0) { arr.push(board[i].textContent)}
     }
-}
-
-const countNumbers=()=>{
-    let numbers = {'1':9 , '2':9, '3':9, '4':9, '5':9, '6':9, '7':9, '8':9, '9':9 };
-    return numbers;
+    return arr
 }
 
 const gameStart =(mode)=>{
@@ -95,12 +92,16 @@ const gameStart =(mode)=>{
     let solution = newBoard.generate();
     newBoard.removeRandom(diff);
     newBoard.draw();
-    console.log(countNumbers())
     let selectedNumber = null;
     let selectedTile;
     let board = document.getElementById('board').children;
-    console.log(board)
-    findNumbers(board)
+    let numbersFound = findNumbers(board);
+    let count = document.getElementById('count').children;
+    for (let i=0; i<numbersFound.length; i++) {
+        newBoard.countNum[numbersFound[i]]--;
+    }
+    
+    newBoard.draw();
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return;
@@ -119,12 +120,13 @@ const gameStart =(mode)=>{
         }
     });
     // --------------------------------       Event clicker for board ------------------------------------------------------------
-    newBoard.elem.addEventListener("click", (e)=>{      
+    newBoard.elem.addEventListener("click", (e)=>{   
         if (gamestate != 'normal') return;
         let totalErrors = document.getElementById('error');
         let board = document.getElementById('board');
         selectedTile = e.target;
         let indexSolution = findIndexOfSolution(solution, selectedTile.id);
+        
         //console.log('Index Solution: ', indexSolution);
         //console.log('Index: ', selectedTile.id);
         //console.log('Tile: ',selectedTile);
@@ -132,6 +134,8 @@ const gameStart =(mode)=>{
             selectedTile.textContent = selectedNumber;
             clickSound.play();
             selectedTile.className = "tile-selected";
+            count[selectedNumber-1].textContent--;
+            newBoard.countNum[selectedNumber]--;
         }
         //-------------------------------------- "You Lost" Section ----------------------------------------------------------
         if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null && selectedNumber != '123456789') {

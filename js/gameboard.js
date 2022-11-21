@@ -1,14 +1,16 @@
-import {swap, shuffleArray, randomNum, randomNumIndex} from "./utils.js"
 class Board {
     constructor(size){
         this.tiles = [];
         
         this.size  = size;
         this.tiles.length = this.size*this.size;
+        //this.game = document.body.appendChild(document.createElement('div'));
         this.totalErrors = document.body.appendChild(document.createElement('div'));
         this.elem = document.body.appendChild(document.createElement('div'));
         this.digits = document.body.appendChild(document.createElement('div'));
+        this.count = document.body.appendChild(document.createElement('div'));
         this.tiles.index = 0;
+        this.countNum = {'1':9 , '2':9, '3':9, '4':9, '5':9, '6':9, '7':9, '8':9, '9':9 };
         const tile = this.tiles;
         for (let i=0; i<tile.length; i++){
             tile[i] = { index: tile.index++, value: 0, quadrant : 0, x: i % 9, y: Math.floor(i/9) }; //access the index||value in grid||quadrant||x && y of an array
@@ -22,18 +24,22 @@ class Board {
             if (tile[i].x >= 3 && tile[i].x <= 5 && tile[i].y>5 )                     { tile[i].quadrant = 7 }    // Bottom Middle Quadrant
             if (tile[i].x > 5  && tile[i].y > 5 )                                     { tile[i].quadrant = 8 }    // Bottom Right Quadrant
         }
-        //console.log(this);
+        console.log(this);
     }
     draw(){
-        const { elem, size, digits, totalErrors } = this;
+        const { elem, size, digits, totalErrors, count, game } = this;
         let idDiv = 0;
+        //game.id = 'game'
         elem.id = 'board';
         digits.id = 'digits';
         totalErrors.id = 'error';
+        count.id = 'count';
         elem.innerHTML = '';
         elem.style.setProperty('--size', size)
         digits.innerHTML = '';
         digits.style.setProperty('--size', size)
+        count.innerHTML = '';
+        count.style.setProperty('--size', size)
         // Drawing Board
         for (let y=0; y<size;y++){
             for (let x=0; x<size;x++){
@@ -52,6 +58,14 @@ class Board {
             e.classList = "empty";
             e.textContent = d;
         }
+        // Drawing Counting Numbers below Digits
+        for (let cn = 1; cn<10; cn++){             
+            const c = document.createElement('div');
+            count.appendChild(c);
+            c.classList = 'count'
+            c.textContent = this.countNum[cn];
+        }
+        
     }
 
     generate(){
@@ -67,7 +81,7 @@ class Board {
                 let col1 = this.getRow(x+1);
                 let col2 = this.getRow(x+2);
                     
-                for (let t=randomN1; t--;){                            // Loop for number of shuffles
+                for (let t=randomN1; t--;){                         // Loop for number of shuffles
                     for (let  i=0; i<9; i++){                       // Loop all results in that column
                         [col0[i].value, col1[i].value] = [col1[i].value, col0[i].value];
                         [col1[i].value, col2[i].value] = [col2[i].value, col1[i].value];
@@ -104,6 +118,9 @@ class Board {
         }
     }
     
+    update(num){
+        console.log( this.countNum[num]--)
+    }
 
     getQuadrant(num) { return this.tiles.filter(e => e.quadrant == num) };
     getRow(num){ return this.tiles.filter(e => e.x == num) };

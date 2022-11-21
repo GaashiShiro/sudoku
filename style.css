@@ -1,12 +1,12 @@
 html, body {                    /* Makes sure the parent frame is fully utilized and the game will float inside it */
-    display:flex;
+    display:grid;
     position:absolute;
     margin:0;
     top:0;
     left:0;
     right:0;
     bottom:0;    
-    background:black;
+    background:rgb(204, 231, 247);
     justify-content:center;
     align-items:center;
     overflow:hidden;
@@ -24,26 +24,10 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 }
 
 
-
-
-
-
-
-
-body {
-    background-color: rgb(204, 231, 247);
-    font-family: 'Audiowide';
-    font-size: 14px;
-    position: absolute;
-    inset: 0px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-}
-
 #error {
+    font-size: 24px;
     display:flex;
+    font-family: 'Audiowide';
     position: relative;
     color: rgb(241, 42, 42);
     justify-content: center;
@@ -51,6 +35,8 @@ body {
 }
 
 #board {
+    font-size: 14px;
+    font-family: 'Audiowide';
     background-color: rgb(154, 207, 231);
     position: relative;
     display: grid;
@@ -63,9 +49,10 @@ body {
 
 
 #digits {
+    font-size: 14px;
     position: relative;
-    cursor: pointer;
     display: grid;
+    font-family: 'Audiowide';
     border: 2px solid rgb(0, 0, 0);
     background-color: rgb(44, 159, 212);
     box-shadow: 1px 1px 16px 1px rgb(154, 207, 231);
@@ -74,7 +61,10 @@ body {
 }
 
 #digits > div {
+    
+    font-family: 'Audiowide';
     background-color: rgb(154, 207, 231);
+    cursor: pointer;
     width: 40px;
     height: 40px;
     display: flex;
@@ -82,7 +72,25 @@ body {
     align-items: center;     /* vertical */
 }
 
+#count {
+    margin-top: -40px;
+    font-size: 12px;
+    font-family: 'Audiowide';
+    position: relative;
+    grid-template-columns: repeat(var(--size), 1fr);
+    display: grid;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+#count >div {
+    
+    display: grid;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+
 #board > div {
+    
     position: relative;
     background-color: rgb(154, 207, 231);
     border: 1px solid rgb(82, 172, 214);
