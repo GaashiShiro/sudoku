@@ -150,3 +150,11 @@ button:active {
 #losing-screen {
     font-size: 54px;
 }
+
+#won {
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+    font-size: 54px;
+    transition: font-size 1000ms;
+    color: yellow
+}

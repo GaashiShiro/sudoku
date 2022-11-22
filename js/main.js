@@ -24,9 +24,7 @@ const startTimer =()=>{
     }, 1000);
 }
 
-const gameOver =()=>{
-    // game over screen?
-}
+
 
 const gameMenu =()=>{
     document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
@@ -42,6 +40,20 @@ const gameMenu =()=>{
     button.addEventListener('click', (e)=>{
         m.remove();
         difficultyButtons();
+    })
+}
+
+const gameWon =()=>{
+    const m = document.createElement('div');
+    m.id = 'won';
+    document.body.appendChild(m);
+    m.textContent = 'You Won';
+    const button = document.body.appendChild(document.createElement('button'));
+    button.textContent = 'Play Again?';
+    button.addEventListener('click', (e)=>{
+        m.remove();
+        difficultyButtons();
+        button.remove()
     })
 }
 
@@ -68,7 +80,7 @@ const difficultyButtons=()=>{
 }
 
 const gameDifficulty =(mode)=>{
-    if (mode == "easy")    { return diffRandNum(40, 45) };
+    if (mode == "easy")    { return diffRandNum(10, 10) }; // 40, 45
     if (mode == "medium")  { return diffRandNum(45, 50) };
     if (mode == "hard")    { return diffRandNum(55, 58) };
     if (mode == "extreme") { return diffRandNum(65, 69) };
@@ -100,16 +112,18 @@ const gameStart =(mode)=>{
     for (let i=0; i<numbersFound.length; i++) {
         newBoard.countNum[numbersFound[i]]--;
     }
-    
     newBoard.draw();
+    for (let i=1; i<10; i++){
+        if (newBoard.countNum[i] == 0) {count[i-1].textContent = ''; digits.children[i-1].textContent = ''; digits.children[i-1].className = "";}
+    }
 
     newBoard.digits.addEventListener("click", (e)=>{    // Event clicker for digits
         if (gamestate != 'normal') return;
         clickSound.play();
         let selNum = e.target;
         let digits = document.getElementById('digits').children;
-        for(let i=0; i<digits.length; i++) { digits[i].className = "empty" }
-        selNum.className = "number-selected";
+        for(let i=0; i<digits.length; i++) { if (digits[i].className != "") { digits[i].className = "empty" } }
+        if (selNum.className != "") {selNum.className = "number-selected"};
         selectedNumber = e.target.textContent;
         //console.log(selectedNumber)
 
@@ -136,6 +150,24 @@ const gameStart =(mode)=>{
             selectedTile.className = "tile-selected";
             count[selectedNumber-1].textContent--;
             newBoard.countNum[selectedNumber]--;
+            for (let i=1; i<10; i++){
+                if (newBoard.countNum[i] == 0) {count[i-1].textContent = ''; digits.children[i-1].textContent = ''; digits.children[i-1].className = "";}
+            }
+
+
+            //let digits = document.getElementById('digits');
+            //let timer = document.getElementById('timer');
+
+            if (Object.values(newBoard.countNum).every(value => value === 0 )) {
+                gameWon();
+                document.getElementById('timer').remove();
+                document.getElementById('error').remove();
+                document.getElementById('board').remove();
+                document.getElementById('digits').remove();
+                document.getElementById('count').remove();
+                document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
+
+            };
         }
         //-------------------------------------- "You Lost" Section ----------------------------------------------------------
         if (selectedNumber != findSolution(solution, indexSolution) && selectedNumber != null && selectedNumber != '123456789') {
@@ -147,6 +179,7 @@ const gameStart =(mode)=>{
                 document.getElementById('error').remove();
                 document.getElementById('board').remove();
                 document.getElementById('digits').remove();
+                document.getElementById('count').remove();
                 document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
                 const lost = document.body.appendChild(document.createElement('div'))
                 lost.id = 'losing-screen'
@@ -170,5 +203,4 @@ const main =()=>{
     gameMenu();
     //gameStart();      //Temporary start without menu
 }
-
 main();
