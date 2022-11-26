@@ -4,8 +4,8 @@ class Board {
         
         this.size  = size;
         this.tiles.length = this.size*this.size;
-        //this.game = document.body.appendChild(document.createElement('div'));
         this.totalErrors = document.body.appendChild(document.createElement('div'));
+        this.totalErrors.textContent = 0;
         this.elem = document.body.appendChild(document.createElement('div'));
         this.digits = document.body.appendChild(document.createElement('div'));
         this.count = document.body.appendChild(document.createElement('div'));

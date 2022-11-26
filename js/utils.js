@@ -32,6 +32,19 @@ const findSolution=(solution, target)=>{
     return solution[target];
 }
 
+const startTimer=()=>{
+    const t = document.createElement('div');
+    let timerInterval;
+    t.id = 'timer';
+    document.body.appendChild(t);
+    let second = 0, minute = 0 // clear the variables
+    clearInterval(timerInterval); // clears timer after restart
+    timerInterval = setInterval(function () {
+        t.textContent = (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second);
+        second++;
+        if (second == 60) { minute++; second = 0; } // add a minute and reset our seconds to 0
+    }, 1000);
+}
 
 export {
     swap,
@@ -39,5 +52,6 @@ export {
     randomNumIndex, randomNum,
     findIndexOfSolution,
     findSolution,
-    diffRandNum
+    diffRandNum,
+    startTimer
 }

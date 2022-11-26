@@ -11,30 +11,28 @@ html, body {                    /* Makes sure the parent frame is fully utilized
     align-items:center;
     overflow:hidden;
     user-select:none;
-}
-#game {                    
-    position:relative;
     width:1152px;                /* Change width/height to match your game resolution. PPG frame size is 1152 x 648 pixels (16:9) */
     min-width:1152px;
     height:648px;
     min-height:648px;    
-    overflow:hidden;
-    background: #333;    
-    zoom:1;    
 }
 
+#timer {
+    font-size: 24px;
+    color: rgb(44, 159, 212);
+    font-family: 'Audiowide';
+    text-align: center;
+}
 
 #error {
     font-size: 24px;
-    display:flex;
     font-family: 'Audiowide';
-    position: relative;
     color: rgb(241, 42, 42);
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 #board {
+    position: flex;
     font-size: 14px;
     font-family: 'Audiowide';
     background-color: rgb(154, 207, 231);
@@ -50,7 +48,6 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 
 #digits {
     font-size: 14px;
-    position: relative;
     display: grid;
     font-family: 'Audiowide';
     border: 2px solid rgb(0, 0, 0);
@@ -61,7 +58,6 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 }
 
 #digits > div {
-    
     font-family: 'Audiowide';
     background-color: rgb(154, 207, 231);
     cursor: pointer;
@@ -73,10 +69,8 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 }
 
 #count {
-    margin-top: -40px;
     font-size: 12px;
     font-family: 'Audiowide';
-    position: relative;
     grid-template-columns: repeat(var(--size), 1fr);
     display: grid;
     justify-content: center; /* horizontal */
@@ -167,8 +161,3 @@ button:active {
     box-shadow: 5px 15px 8px rgb(8, 70, 99);
 }
 
-#timer {
-    font-size: 24px;
-    color: rgb(44, 159, 212);
-    font-family: 'Audiowide';
-}
