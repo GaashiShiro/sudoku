@@ -9,22 +9,20 @@ clickSound.volume = 0.3;
 let wrongClick = new Audio('sound/toom_click.wav');
 wrongClick.volume = 0.5;
 
-const startTimer =()=>{
+
+const startTimer=()=>{
     const t = document.createElement('div');
     let timerInterval;
     t.id = 'timer';
     document.body.appendChild(t);
+    let second = 0, minute = 0 // clear the variables
     clearInterval(timerInterval); // clears timer after restart
     timerInterval = setInterval(function () {
-        let second = 0, minute = 0, hour = 0; // clear the variables
-        timer.textContent = (hour ? hour + ':' : '') + (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second);
+        t.textContent = (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second);
         second++;
-        if (second == 60) { minute++; second = 0; } // If so, we add a minute and reset our seconds to 0
-        if (minute == 60) { hour++; minute = 0;} // If we hit 60 minutes "one hour" we reset the minutes and plus an hour
+        if (second == 60) { minute++; second = 0; } // add a minute and reset our seconds to 0
     }, 1000);
 }
-
-
 
 const gameMenu =()=>{
     document.body.style.backgroundImage = "url('pic/sudoku_game_logo2.png')";
@@ -48,10 +46,18 @@ const gameWon =()=>{
     m.id = 'won';
     document.body.appendChild(m);
     m.textContent = 'You Won';
+
+    const timer = document.getElementById('timer').textContent;
+    const completionTime = document.createElement('div');
+    completionTime.id = 'timer';
+    m.appendChild(completionTime);
+    completionTime.textContent = 'Completion Time: '+timer;
+
     const button = document.body.appendChild(document.createElement('button'));
     button.textContent = 'Play Again?';
     button.addEventListener('click', (e)=>{
         m.remove();
+        completionTime.remove();
         difficultyButtons();
         button.remove()
     })
@@ -97,7 +103,10 @@ const findNumbers =(board)=>{
 const gameStart =(mode)=>{
     mainSound.play();
     let gamestate = 'normal';
-    let timer = startTimer();
+    
+    startTimer();
+        
+
     let diff = gameDifficulty(mode);
     console.log('Tiles Hidden: ',diff,'\n','Mode: ', mode);    
     const newBoard = new Board (9);

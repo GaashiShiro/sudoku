@@ -154,7 +154,21 @@ button:active {
 #won {
     justify-content: center; /* horizontal */
     align-items: center;     /* vertical */
+    text-align: center;
     font-size: 54px;
     transition: font-size 1000ms;
-    color: yellow
+    color: black;
+    background-color: rgb(154, 207, 231);
+    width: 320px;
+    padding: 10px;
+    border: 7px solid rgb(44, 159, 212);
+    border-radius: 40px;
+    margin: 0;
+    box-shadow: 5px 15px 8px rgb(8, 70, 99);
+}
+
+#timer {
+    font-size: 24px;
+    color: rgb(44, 159, 212);
+    font-family: 'Audiowide';
 }
