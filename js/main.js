@@ -46,13 +46,11 @@ const gameWon =()=>{
     m.id = 'won';
     document.body.appendChild(m);
     m.textContent = 'You Won';
-
     const timer = document.getElementById('timer').textContent;
     const completionTime = document.createElement('div');
     completionTime.id = 'timer';
     m.appendChild(completionTime);
     completionTime.textContent = 'Completion Time: '+timer;
-
     const button = document.body.appendChild(document.createElement('button'));
     button.textContent = 'Play Again?';
     button.addEventListener('click', (e)=>{
