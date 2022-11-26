@@ -168,7 +168,7 @@ const gameStart =(mode)=>{
     });
 }
 const main =()=>{
-    //gameMenu();
-    gameStart('easy');      //Temporary start without menu
+    gameMenu();
+    //gameStart('easy');      //Temporary start without menu
 }
 main();
