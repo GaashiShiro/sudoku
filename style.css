@@ -1,21 +1,28 @@
 html, body {                    /* Makes sure the parent frame is fully utilized and the game will float inside it */
-    display:grid;
+    display:flex;
     position:absolute;
     margin:0;
     top:0;
     left:0;
     right:0;
     bottom:0;    
-    background:rgb(204, 231, 247);
+    background:black;
     justify-content:center;
     align-items:center;
     overflow:hidden;
     user-select:none;
+}
+#game {                    
+    position:relative;
     width:1152px;                /* Change width/height to match your game resolution. PPG frame size is 1152 x 648 pixels (16:9) */
     min-width:1152px;
     height:648px;
     min-height:648px;    
+    overflow:hidden;
+    background: #333;    
+    zoom:1;    
 }
+
 
 #timer {
     font-size: 24px;
@@ -32,12 +39,13 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 }
 
 #board {
-    position: flex;
     font-size: 14px;
     font-family: 'Audiowide';
     background-color: rgb(154, 207, 231);
-    position: relative;
+    position: absolute;
     display: grid;
+    top: 80px;
+    left: 384px;
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 1px 1px 16px 1px rgb(154, 207, 231);
     grid-template-columns: repeat(var(--size), 1fr);
@@ -47,8 +55,11 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 
 
 #digits {
+    position: absolute;
     font-size: 14px;
     display: grid;
+    top: 480px;
+    left: 384px;
     font-family: 'Audiowide';
     border: 2px solid rgb(0, 0, 0);
     background-color: rgb(44, 159, 212);
@@ -69,6 +80,10 @@ html, body {                    /* Makes sure the parent frame is fully utilized
 }
 
 #count {
+    position: absolute;
+    width: 382px;
+    top: 530px;
+    left: 403px;
     font-size: 12px;
     font-family: 'Audiowide';
     grid-template-columns: repeat(var(--size), 1fr);
@@ -77,14 +92,11 @@ html, body {                    /* Makes sure the parent frame is fully utilized
     align-items: center;     /* vertical */
 }
 #count >div {
-    
-    display: grid;
     justify-content: center; /* horizontal */
     align-items: center;     /* vertical */
 }
 
 #board > div {
-    
     position: relative;
     background-color: rgb(154, 207, 231);
     border: 1px solid rgb(82, 172, 214);
@@ -142,35 +154,79 @@ button:active {
 }
 
 #losing-screen {
+    position: absolute;
     justify-content: center; /* horizontal */
     align-items: center;     /* vertical */
     text-align: center;
     font-size: 54px;
-    transition: font-size 1000ms;
+    /*transition: font-size 1000ms;*/
     color: rgb(112, 41, 0);
     background-color: rgb(154, 207, 231);
     width: 350px;  
     padding: 15px;
     border: 7px solid rgb(44, 159, 212);
     border-radius: 40px;
-    margin-top: 100px;
+    top: 300px;
+    left:400px;
     box-shadow: 5px 15px 8px rgb(8, 70, 99);
 }
 
+#losing-screen button{
+    position: absolute;
+    margin-top: 100px;
+    margin-left: -170px;
+    
+}
+
 #won {
+    font-family: 'Audiowide';
     justify-content: center; /* horizontal */
     align-items: center;     /* vertical */
     text-align: center;
-    font-size: 54px;
+    font-size: 40px;
     transition: font-size 1000ms;
     color: black;
     background-color: rgb(154, 207, 231);
-    width: 350px;
-    height: 110px;  /*Adjust here to place more info after winning. i.e. score*/
+    width: 460px;
+    height: 150px;  /*Adjust here to place more info after winning. i.e. score*/
     padding: 15px;
     border: 7px solid rgb(44, 159, 212);
     border-radius: 40px;
     margin-top: 100px;
     box-shadow: 5px 15px 8px rgb(8, 70, 99);
+    position: absolute;
+    top: 50px;
+    left: 330px;
 }
 
+#won button {
+    position: absolute;
+    top: 170px;
+    left: 150px;
+}
+
+#menu {
+    position: absolute;
+    top: 320px;
+    left: 490px;
+}
+
+#difficulty {
+    position: relative;
+    display:flex;
+    top: 320px;
+    left: 305px;
+}
+
+#score {
+    position: absolute;
+    top: 40px;
+    left: 390px;
+    font-size: 24px;
+    color: rgb(44, 159, 212);
+    font-family: 'Audiowide';
+}
+
+#finalScore {
+
+}

@@ -33,10 +33,23 @@ const findSolution=(solution, target)=>{
 }
 
 const startTimer=()=>{
+    const game = document.getElementById('game');
     const t = document.createElement('div');
     let timerInterval;
     t.id = 'timer';
-    document.body.appendChild(t);
+    game.appendChild(t);
+    let second = 0, minute = 0 // clear the variables
+    clearInterval(timerInterval); // clears timer after restart
+    timerInterval = setInterval(function () {
+        t.textContent = (minute < 10 ? '0' + minute : minute) + ':' + (second < 10 ? '0' + second : second);
+        second++;
+        if (second == 60) { minute++; second = 0; } // add a minute and reset our seconds to 0
+    }, 1000);
+}
+
+const sTimer=()=>{
+    const t = document.getElementById('timer');
+    let timerInterval;
     let second = 0, minute = 0 // clear the variables
     clearInterval(timerInterval); // clears timer after restart
     timerInterval = setInterval(function () {
@@ -53,5 +66,6 @@ export {
     findIndexOfSolution,
     findSolution,
     diffRandNum,
-    startTimer
+    startTimer,
+    sTimer
 }

@@ -4,11 +4,14 @@ class Board {
         
         this.size  = size;
         this.tiles.length = this.size*this.size;
-        this.totalErrors = document.body.appendChild(document.createElement('div'));
+        this.game = document.body.appendChild(document.createElement('div'));
+        this.timer = this.game.appendChild(document.createElement('div'));
+        this.totalErrors = this.game.appendChild(document.createElement('div'));
+        this.score = this.game.appendChild(document.createElement('div'));
         this.totalErrors.textContent = 0;
-        this.elem = document.body.appendChild(document.createElement('div'));
-        this.digits = document.body.appendChild(document.createElement('div'));
-        this.count = document.body.appendChild(document.createElement('div'));
+        this.elem = this.game.appendChild(document.createElement('div'));
+        this.digits = this.game.appendChild(document.createElement('div'));
+        this.count = this.game.appendChild(document.createElement('div'));
         this.tiles.index = 0;
         this.countNum = {'1':9 , '2':9, '3':9, '4':9, '5':9, '6':9, '7':9, '8':9, '9':9 };
         const tile = this.tiles;
@@ -27,18 +30,21 @@ class Board {
         console.log(this);
     }
     draw(){
-        const { elem, size, digits, totalErrors, count, game } = this;
+        const { elem, size, digits, totalErrors, count, game, timer, score } = this;
         let idDiv = 0;
-        //game.id = 'game'
+        game.id = 'game'
         elem.id = 'board';
         digits.id = 'digits';
         totalErrors.id = 'error';
         count.id = 'count';
-        elem.innerHTML = '';
+        timer.id = 'timer';
+        score.id = 'score';
+        //score.textContent = 'Score: 0';
+        elem.textContent = '';
         elem.style.setProperty('--size', size)
-        digits.innerHTML = '';
+        digits.textContent = '';
         digits.style.setProperty('--size', size)
-        count.innerHTML = '';
+        count.textContent = '';
         count.style.setProperty('--size', size)
         // Drawing Board
         for (let y=0; y<size;y++){
